@@ -1,0 +1,278 @@
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+/home/ubuntu/trading_agents/analyze_assets.py:31: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  total_return = ((hist['Close'][-1] / hist['Close'][0]) - 1) * 100
+/home/ubuntu/trading_agents/analyze_assets.py:44: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+  current_price = hist['Close'][-1]
+====================================================================================================
+ASSET UNIVERSE ANALYSIS
+====================================================================================================
+Analyzing 23 assets...
+
+Analyzing Gold (GC=F)... ✓
+Analyzing S&P 500 (^GSPC)... ✓
+Analyzing Bitcoin (BTC-USD)... ✓
+Analyzing Brent Oil (BZ=F)... ✓
+Analyzing Silver (SI=F)... ✓
+Analyzing Copper (HG=F)... ✓
+Analyzing Natural Gas (NG=F)... ✓
+Analyzing Wheat (ZW=F)... ✓
+Analyzing NASDAQ (^IXIC)... ✓
+Analyzing Dow Jones (^DJI)... ✓
+Analyzing FTSE 100 (^FTSE)... ✓
+Analyzing Nikkei 225 (^N225)... ✓
+Analyzing Shanghai Composite (000001.SS)... ✓
+Analyzing Ethereum (ETH-USD)... ✓
+Analyzing Solana (SOL-USD)... ✓
+Analyzing Binance Coin (BNB-USD)... ✓
+Analyzing EUR/USD (EURUSD=X)... ✓
+Analyzing GBP/USD (GBPUSD=X)... ✓
+Analyzing USD/JPY (USDJPY=X)... ✓
+Analyzing USD/CHF (USDCHF=X)... ✓
+Analyzing US 10Y Treasury (^TNX)... ✓
+Analyzing US 30Y Treasury (^TYX)... ✓
+Analyzing VIX (^VIX)... ✓
+
+====================================================================================================
+RESULTS - ALL ASSETS
+====================================================================================================
+              Name    Category      Price Volatility Return_1Y Sharpe Max_DD
+   US 30Y Treasury       Bonds      $4.66      17.2%      4.1%   0.09 -12.0%
+   US 10Y Treasury       Bonds      $4.11      19.8%     -3.6%  -0.29 -17.7%
+              Gold Commodities   $3980.50      20.5%     42.7%   1.65  -8.5%
+            Silver Commodities     $47.74      30.4%     40.8%   1.15 -16.6%
+       Natural Gas Commodities      $3.87      71.3%     35.9%   0.72 -40.0%
+            Copper Commodities      $5.11      37.2%     18.0%   0.53 -25.3%
+             Wheat Commodities    $528.25      23.7%     -7.8%  -0.40 -18.1%
+         Brent Oil Commodities     $63.56      28.8%    -12.4%  -0.45 -26.6%
+      Binance Coin      Crypto   $1102.89      45.0%     85.1%   1.08 -29.1%
+           Bitcoin      Crypto $108579.90      37.0%     50.1%   0.83 -28.1%
+          Ethereum      Crypto   $3831.60      63.7%     44.2%   0.65 -63.2%
+            Solana      Crypto    $188.12      72.7%      7.5%   0.37 -59.7%
+Shanghai Composite    Equities   $3986.90      14.6%     22.1%   1.21 -10.8%
+          FTSE 100    Equities   $9693.10      12.0%     18.8%   1.16 -13.4%
+        Nikkei 225    Equities  $51325.61      23.1%     30.7%   1.14 -22.7%
+            NASDAQ    Equities  $23958.47      24.6%     28.8%   1.00 -24.3%
+           S&P 500    Equities   $6890.59      19.0%     18.5%   0.79 -18.9%
+         Dow Jones    Equities  $47632.00      17.1%     13.0%   0.58 -16.4%
+           EUR/USD       Forex      $1.16       8.5%      6.8%   0.33  -6.3%
+           USD/JPY       Forex    $154.36      10.4%      0.7%  -0.27 -11.0%
+           GBP/USD       Forex      $1.31       7.8%      0.8%  -0.37  -6.7%
+           USD/CHF       Forex      $0.80       9.2%     -7.4%  -1.21 -14.3%
+               VIX  Volatility     $16.62     159.8%    -18.3%   0.57 -72.8%
+
+====================================================================================================
+TOP 10 BY SHARPE RATIO
+====================================================================================================
+              Name    Category Return_1Y Sharpe Volatility
+              Gold Commodities     42.7%   1.65      20.5%
+Shanghai Composite    Equities     22.1%   1.21      14.6%
+          FTSE 100    Equities     18.8%   1.16      12.0%
+            Silver Commodities     40.8%   1.15      30.4%
+        Nikkei 225    Equities     30.7%   1.14      23.1%
+      Binance Coin      Crypto     85.1%   1.08      45.0%
+            NASDAQ    Equities     28.8%   1.00      24.6%
+           Bitcoin      Crypto     50.1%   0.83      37.0%
+           S&P 500    Equities     18.5%   0.79      19.0%
+       Natural Gas Commodities     35.9%   0.72      71.3%
+
+====================================================================================================
+TOP 10 BY RETURN (1Y)
+====================================================================================================
+              Name    Category Return_1Y Sharpe Max_DD
+      Binance Coin      Crypto     85.1%   1.08 -29.1%
+           Bitcoin      Crypto     50.1%   0.83 -28.1%
+          Ethereum      Crypto     44.2%   0.65 -63.2%
+              Gold Commodities     42.7%   1.65  -8.5%
+            Silver Commodities     40.8%   1.15 -16.6%
+       Natural Gas Commodities     35.9%   0.72 -40.0%
+        Nikkei 225    Equities     30.7%   1.14 -22.7%
+            NASDAQ    Equities     28.8%   1.00 -24.3%
+Shanghai Composite    Equities     22.1%   1.21 -10.8%
+          FTSE 100    Equities     18.8%   1.16 -13.4%
+
+====================================================================================================
+CATEGORY ANALYSIS
+====================================================================================================
+             Avg Return (%)  Avg Volatility (%)  Avg Sharpe
+Category                                                   
+Bonds                  0.21               18.51       -0.10
+Commodities           19.53               35.31        0.53
+Crypto                46.74               54.58        0.73
+Equities              21.97               18.39        0.98
+Forex                  0.25                8.96       -0.38
+Volatility           -18.33              159.76        0.57
+
+====================================================================================================
+RECOMMENDATIONS
+====================================================================================================
+
+✅ HIGH PRIORITY (Sharpe > 1.0, Vol < 50%):
+  • Gold                 | Return:    42.7% | Sharpe:  1.65 | Vol:  20.5%
+  • Silver               | Return:    40.8% | Sharpe:  1.15 | Vol:  30.4%
+  • Binance Coin         | Return:    85.1% | Sharpe:  1.08 | Vol:  45.0%
+  • Shanghai Composite   | Return:    22.1% | Sharpe:  1.21 | Vol:  14.6%
+  • FTSE 100             | Return:    18.8% | Sharpe:  1.16 | Vol:  12.0%
+  • Nikkei 225           | Return:    30.7% | Sharpe:  1.14 | Vol:  23.1%
+
+⭐ MEDIUM PRIORITY (Sharpe > 0.5, Vol < 70%):
+  • Copper               | Return:    18.0% | Sharpe:  0.53 | Vol:  37.2%
+  • Bitcoin              | Return:    50.1% | Sharpe:  0.83 | Vol:  37.0%
+  • Ethereum             | Return:    44.2% | Sharpe:  0.65 | Vol:  63.7%
+  • NASDAQ               | Return:    28.8% | Sharpe:  1.00 | Vol:  24.6%
+  • S&P 500              | Return:    18.5% | Sharpe:  0.79 | Vol:  19.0%
+  • Dow Jones            | Return:    13.0% | Sharpe:  0.58 | Vol:  17.1%
+
+⚠️  LOW PRIORITY (Others):
+  • US 30Y Treasury      | Return:     4.1% | Sharpe:  0.09 | Vol:  17.2%
+  • US 10Y Treasury      | Return:    -3.6% | Sharpe: -0.29 | Vol:  19.8%
+  • Natural Gas          | Return:    35.9% | Sharpe:  0.72 | Vol:  71.3%
+  • Wheat                | Return:    -7.8% | Sharpe: -0.40 | Vol:  23.7%
+  • Brent Oil            | Return:   -12.4% | Sharpe: -0.45 | Vol:  28.8%
+  • Solana               | Return:     7.5% | Sharpe:  0.37 | Vol:  72.7%
+  • EUR/USD              | Return:     6.8% | Sharpe:  0.33 | Vol:   8.5%
+  • USD/JPY              | Return:     0.7% | Sharpe: -0.27 | Vol:  10.4%
+  • GBP/USD              | Return:     0.8% | Sharpe: -0.37 | Vol:   7.8%
+  • USD/CHF              | Return:    -7.4% | Sharpe: -1.21 | Vol:   9.2%
+  • VIX                  | Return:   -18.3% | Sharpe:  0.57 | Vol: 159.8%
+
+====================================================================================================
+DIVERSIFICATION ANALYSIS
+====================================================================================================
+
+Calculating correlations for top assets...
+
+Correlation Matrix (Top 10 by Sharpe):
+           GC=F  000001.SS  ^FTSE  SI=F  ...  ^IXIC  BTC-USD  ^GSPC  NG=F
+GC=F       1.00        NaN    NaN  0.69  ...  -0.01      NaN  -0.00  0.01
+000001.SS   NaN        1.0    NaN   NaN  ...    NaN      NaN    NaN   NaN
+^FTSE       NaN        NaN   1.00   NaN  ...    NaN     0.01    NaN   NaN
+SI=F       0.69        NaN    NaN  1.00  ...   0.24      NaN   0.23 -0.01
+^N225       NaN        NaN    NaN   NaN  ...    NaN      NaN    NaN   NaN
+BNB-USD     NaN        NaN   0.14   NaN  ...    NaN     0.60    NaN   NaN
+^IXIC     -0.01        NaN    NaN  0.24  ...   1.00      NaN   0.97  0.12
+BTC-USD     NaN        NaN   0.01   NaN  ...    NaN     1.00    NaN   NaN
+^GSPC     -0.00        NaN    NaN  0.23  ...   0.97      NaN   1.00  0.12
+NG=F       0.01        NaN    NaN -0.01  ...   0.12      NaN   0.12  1.00
+
+[10 rows x 10 columns]
+
+Average Correlation per Asset:
+  Natural Gas         : 0.25
+  Gold                : 0.34
+  FTSE 100            : 0.38
+  Silver              : 0.43
+  NASDAQ              : 0.46
+  S&P 500             : 0.46
+  Bitcoin             : 0.54
+  Binance Coin        : 0.58
+  Nikkei 225          : 1.00
+  Shanghai Composite  : 1.00
+
+====================================================================================================
+FINAL RECOMMENDATIONS
+====================================================================================================
+
+Basierend auf der Analyse:
+
+1. KEEP (Aktuelles Portfolio):
+   ✅ Gold - Safe Haven, niedrige Korrelation
+   ✅ Bitcoin - Hohe Returns, aber volatil
+   ⚠️  S&P 500 - Aktuell überbewertet (reduzieren)
+   ⚠️  Brent Oil - Aktuell bearish (skip)
+
+2. ADD (Neue Assets):
+   Basierend auf Sharpe Ratio, Volatilität und Diversifikation
+   (siehe HIGH/MEDIUM PRIORITY oben)
+
+3. SKIP (Zu volatil oder schlechte Performance):
+   (siehe LOW PRIORITY oben)
+
+
+Analysis completed!
