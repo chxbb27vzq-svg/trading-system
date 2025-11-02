@@ -13,6 +13,7 @@ sys.path.append('/home/ubuntu/trading_agents')
 
 from data_providers.alpha_vantage_provider import AlphaVantageProvider, get_symbol
 from data_providers.gdelt_provider import GDELTProvider
+from data_providers.hybrid_provider import HybridMarketProvider
 
 # Bot configuration
 BOT_TOKEN = "8305397344:AAER-Kpnczu6kPPC_5jfmHs7rKoZVAuAAHE"
@@ -23,6 +24,7 @@ class EnhancedTradingBot:
         self.app = Application.builder().token(token).build()
         self.alpha_vantage = AlphaVantageProvider()
         self.gdelt = GDELTProvider()
+        self.hybrid = HybridMarketProvider()  # NEW: Hybrid provider
         self.portfolio = {
             'gold': {'allocation': 0.18, 'leverage': 4, 'capital': 1800},
             'bitcoin': {'allocation': 0.08, 'leverage': 3, 'capital': 800},
@@ -53,9 +55,12 @@ class EnhancedTradingBot:
         await update.message.reply_text("📊 Lade Daten...")
         
         try:
-            # Get prices (yfinance for speed)
-            gold = yf.Ticker("GC=F").history(period="1d")['Close'].iloc[-1]
-            btc = yf.Ticker("BTC-USD").history(period="1d")['Close'].iloc[-1]
+            # Get prices from hybrid provider
+            gold_data = self.hybrid.get_gold_analysis()
+            btc_data = self.hybrid.get_bitcoin_analysis()
+            
+            gold = gold_data['price'] if gold_data else 0
+            btc = btc_data['price'] if btc_data else 0
             
             # Get geopolitical risk (quick)
             msg = "📊 *PORTFOLIO STATUS*\n\n"
@@ -72,102 +77,104 @@ class EnhancedTradingBot:
             await update.message.reply_text(f"❌ Fehler: {str(e)}")
     
     async def gold_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Enhanced Gold analysis with Alpha Vantage"""
-        await update.message.reply_text("💰 Analysiere Gold mit Alpha Vantage...")
+        """Enhanced Gold analysis with Hybrid Provider"""
+        await update.message.reply_text("💰 Analysiere Gold (TradingView + yfinance)...")
         
         try:
-            # Get REAL gold price from yfinance (GC=F futures)
-            gold_ticker = yf.Ticker("GC=F")
-            gold_hist = gold_ticker.history(period="5d")
-            current_price = gold_hist['Close'].iloc[-1]
-            prev_price = gold_hist['Close'].iloc[-2]
-            change_pct = ((current_price - prev_price) / prev_price) * 100
+            # Get gold data from hybrid provider
+            gold = self.hybrid.get_gold_analysis()
             
-            # Get technical indicators from Alpha Vantage (using GLD as proxy)
-            analysis = self.alpha_vantage.get_comprehensive_analysis('GLD')
+            if not gold:
+                await update.message.reply_text("❌ Konnte Gold-Daten nicht abrufen")
+                return
             
-            msg = "💰 *GOLD ANALYSE (Enhanced)*\n\n"
-            msg += f"📈 Preis: ${current_price:,.2f}\n"
-            msg += f"📊 24h: {change_pct:+.2f}%\n\n"
+            msg = "💰 *GOLD ANALYSE*\n\n"
+            msg += f"📈 Preis: ${gold['price']:,.2f}\n"
+            msg += f"📊 24h: {gold['change_percent']:+.2f}%\n"
+            msg += f"🔺 High: ${gold['high']:,.2f}\n"
+            msg += f"🔻 Low: ${gold['low']:,.2f}\n\n"
             
-            if analysis and analysis['rsi']:
-                rsi = analysis['rsi']
-                macd = analysis['macd']
-                ema_50 = analysis['ema_50']
-                
+            if gold.get('rsi'):
                 msg += f"📊 *Technical Indicators:*\n"
-                msg += f"   • RSI(14): {rsi['value']:.1f} ({rsi['signal']})\n"
+                msg += f"   • RSI(14): {gold['rsi']:.1f}\n"
                 
-                if macd:
-                    msg += f"   • MACD: {macd['trend']}\n"
+                if gold.get('macd'):
+                    msg += f"   • MACD: {gold['macd']:.2f}\n"
                 
-                if ema_50:
-                    # Scale EMA from GLD to Gold price (multiply by ~11)
-                    ema_scaled = ema_50['value'] * (current_price / 368)  # Approximate scaling
-                    msg += f"   • EMA(50): ${ema_scaled:,.0f}\n"
-                
-                msg += f"\n✅ *Empfehlung:* HOLD 18%\n"
-                msg += f"🎯 Target: $4,200\n"
-                msg += f"🛑 Stop: $3,850\n\n"
-                msg += f"💡 Overall: {analysis['overall_sentiment']}"
-            else:
-                # Fallback without indicators
-                msg += f"✅ *Empfehlung:* HOLD 18%\n"
-                msg += f"🎯 Target: $4,200\n"
-                msg += f"🛑 Stop: $3,850\n\n"
-                msg += f"💡 Technische Indikatoren vorübergehend nicht verfügbar"
+                msg += f"   • TradingView: {gold['recommendation']}\n\n"
+            
+            msg += f"✅ *Empfehlung:* HOLD 18%\n"
+            msg += f"🎯 Target: $4,200\n"
+            msg += f"🛑 Stop: $3,850\n\n"
+            msg += f"💾 Quelle: {gold['source']}"
             
             await update.message.reply_text(msg, parse_mode='Markdown')
         except Exception as e:
-            await update.message.reply_text(f"❌ Fehler: {str(e)}\n\nVerwende Fallback...")
-            try:
-                gold = yf.Ticker("GC=F").history(period="1d")['Close'].iloc[-1]
-                msg = f"💰 *GOLD*\n\nPreis: ${gold:,.2f}\n✅ Empfehlung: HOLD 18%"
-                await update.message.reply_text(msg, parse_mode='Markdown')
-            except:
-                await update.message.reply_text("❌ Konnte Gold-Daten nicht abrufen")
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
     
     async def bitcoin_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Enhanced Bitcoin analysis"""
-        await update.message.reply_text("₿ Analysiere Bitcoin...")
+        """Enhanced Bitcoin analysis with TradingView"""
+        await update.message.reply_text("₿ Analysiere Bitcoin (TradingView)...")
         
         try:
-            # Use yfinance for Bitcoin (Alpha Vantage uses GBTC proxy)
-            ticker = yf.Ticker("BTC-USD")
-            hist = ticker.history(period="5d")
-            current = hist['Close'].iloc[-1]
-            prev = hist['Close'].iloc[-2]
-            change = ((current - prev) / prev) * 100
+            # Get bitcoin data from hybrid provider (TradingView)
+            btc = self.hybrid.get_bitcoin_analysis()
+            
+            if not btc:
+                await update.message.reply_text("❌ Konnte Bitcoin-Daten nicht abrufen")
+                return
             
             msg = "₿ *BITCOIN ANALYSE*\n\n"
-            msg += f"📈 Aktuell: ${current:,.2f}\n"
-            msg += f"📊 24h: {change:+.2f}%\n\n"
+            msg += f"📈 Preis: ${btc['price']:,.2f}\n"
+            msg += f"📊 24h: {btc['change_percent']:+.2f}%\n\n"
+            
+            if btc.get('rsi'):
+                msg += f"📊 *Technical Indicators:*\n"
+                msg += f"   • RSI(14): {btc['rsi']:.1f}\n"
+                
+                if btc.get('macd'):
+                    msg += f"   • MACD: {btc['macd']:.2f}\n"
+                
+                if btc.get('ema_50'):
+                    msg += f"   • EMA(50): ${btc['ema_50']:,.0f}\n"
+                
+                msg += f"   • TradingView: {btc['recommendation']}\n\n"
+            
             msg += f"✅ *Empfehlung:* HOLD 8%\n"
             msg += f"🎯 Target: $118,000\n"
             msg += f"🛑 Stop: $103,000\n\n"
-            msg += f"💡 Digital Gold Narrative intakt"
+            msg += f"💾 Quelle: {btc['source']}"
             
             await update.message.reply_text(msg, parse_mode='Markdown')
         except Exception as e:
             await update.message.reply_text(f"❌ Fehler: {str(e)}")
     
     async def silver_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Silver analysis with warning"""
+        """Silver analysis with warning (Hybrid Provider)"""
+        await update.message.reply_text("🥈 Analysiere Silver...")
+        
         try:
-            ticker = yf.Ticker("SI=F")
-            hist = ticker.history(period="5d")
-            current = hist['Close'].iloc[-1]
-            prev = hist['Close'].iloc[-2]
-            change = ((current - prev) / prev) * 100
+            # Get silver data from hybrid provider
+            silver = self.hybrid.get_silver_analysis()
+            
+            if not silver:
+                await update.message.reply_text("❌ Konnte Silver-Daten nicht abrufen")
+                return
             
             msg = "🥈 *SILVER ANALYSE*\n\n"
-            msg += f"📈 Aktuell: ${current:,.2f}\n"
-            msg += f"📊 24h: {change:+.2f}%\n\n"
+            msg += f"📈 Preis: ${silver['price']:,.2f}\n"
+            msg += f"📊 24h: {silver['change_percent']:+.2f}%\n\n"
+            
+            if silver.get('rsi'):
+                msg += f"📊 RSI(14): {silver['rsi']:.1f}\n"
+                msg += f"📊 TradingView: {silver['recommendation']}\n\n"
+            
             msg += f"⚠️ *WARNUNG:* Topping Pattern!\n"
             msg += f"🔴 $49 = Historisches Resistance\n"
             msg += f"📉 EV: -1.32% (negativ!)\n\n"
             msg += f"❌ *Empfehlung:* NICHT KAUFEN\n"
-            msg += f"⏳ Warten auf $42-45"
+            msg += f"⏳ Warten auf $42-45\n\n"
+            msg += f"💾 Quelle: {silver['source']}"
             
             await update.message.reply_text(msg, parse_mode='Markdown')
         except Exception as e:
