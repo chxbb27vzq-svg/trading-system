@@ -12,7 +12,7 @@ import sys
 sys.path.append('/home/ubuntu/trading_agents')
 
 from data_providers.alpha_vantage_provider import AlphaVantageProvider, get_symbol
-from data_providers.gdelt_provider import GDELTProvider
+from data_providers.geopolitics_professional import ProfessionalGeopoliticsAnalyzer
 from data_providers.hybrid_provider import HybridMarketProvider
 
 # Bot configuration
@@ -23,7 +23,7 @@ class EnhancedTradingBot:
         self.token = token
         self.app = Application.builder().token(token).build()
         self.alpha_vantage = AlphaVantageProvider()
-        self.gdelt = GDELTProvider()
+        self.geopolitics = ProfessionalGeopoliticsAnalyzer()
         self.hybrid = HybridMarketProvider()  # NEW: Hybrid provider
         self.portfolio = {
             'gold': {'allocation': 0.18, 'leverage': 4, 'capital': 1800},
@@ -181,48 +181,29 @@ class EnhancedTradingBot:
             await update.message.reply_text(f"❌ Fehler: {str(e)}")
     
     async def geopolitical_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Comprehensive geopolitical risk assessment with GDELT"""
-        await update.message.reply_text("🌍 Analysiere geopolitische Risiken mit GDELT...\n(Dauert ~30 Sekunden)")
+        """Professional geopolitical analysis (YouTube + News)"""
+        await update.message.reply_text(
+            "🌍 Starte professionelle Geopolitik-Analyse...\n\n"
+            "🎓 YouTube: Diesen, Mercouris, Gromen\n"
+            "📰 News: 10 internationale Quellen\n"
+            "⏱️ Dauert ~45 Sekunden..."
+        )
         
         try:
-            assessment = self.gdelt.get_comprehensive_risk_assessment()
+            # Professional analysis
+            current_portfolio = {'gold': 18, 'bitcoin': 8, 'cash': 74}
+            analysis = self.geopolitics.get_comprehensive_analysis(current_portfolio)
             
-            overall = assessment['overall']
-            nuclear = assessment['nuclear']
-            market = assessment['market_impact']
-            
-            msg = "🌍 *GEOPOLITISCHE LAGE (GDELT)*\n\n"
-            msg += f"📊 *Gesamt-Risiko:* {overall['score']}/10\n"
-            msg += f"🎯 Level: {overall['level']}\n"
-            msg += f"🛡️ Safe Haven: {overall['safe_haven_demand']}\n\n"
-            
-            msg += f"⚠️ *NUKLEAR-SPANNUNGEN:* {nuclear['score']}/10\n"
-            msg += f"   Level: {nuclear['level']}\n"
-            msg += f"   Trend: {nuclear['trend']}\n"
-            msg += f"   Artikel: {nuclear['article_count']}\n\n"
-            
-            if nuclear['latest_events']:
-                msg += f"📰 *Letzte Events:*\n"
-                for event in nuclear['latest_events'][:2]:
-                    title = event['title'][:60] + "..." if len(event['title']) > 60 else event['title']
-                    msg += f"   • {title}\n"
-                msg += "\n"
-            
-            msg += f"💰 *MARKT-IMPACT:*\n"
-            msg += f"   Gold: {market['gold']['direction']} {market['gold']['magnitude']}\n"
-            msg += f"   Bitcoin: {market['bitcoin']['direction']} {market['bitcoin']['magnitude']}\n"
-            msg += f"   Equities: {market['equities']['direction']} {market['equities']['magnitude']}\n\n"
-            
-            msg += f"✅ *Portfolio-Empfehlung:*\n"
-            if overall['score'] >= 7:
-                msg += "   Defensive Positionierung RICHTIG!\n"
-                msg += "   18% Gold, 8% Bitcoin, 74% Cash"
-            else:
-                msg += "   Risiken moderat, Portfolio OK"
+            # Format for Telegram
+            msg = self.geopolitics.format_for_telegram(analysis)
             
             await update.message.reply_text(msg, parse_mode='Markdown')
+            
         except Exception as e:
-            await update.message.reply_text(f"❌ GDELT Fehler: {str(e)}\nVerwende manuelle Daten...")
+            await update.message.reply_text(
+                f"❌ Fehler: {str(e)}\n\n"
+                f"Fallback auf manuelle Analyse..."
+            )
             await self.news(update, context)
     
     async def news(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
