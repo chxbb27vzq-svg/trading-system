@@ -292,8 +292,8 @@ class YouTubeGeopoliticsProvider:
     
     def get_comprehensive_analysis(self):
         """Get comprehensive geopolitical analysis from all channels"""
-        print("🎓 Fetching YouTube Geopolitics Analysis...")
-        print("📺 Channels: Glenn Diesen, Alexander Mercouris, Luke Gromen")
+        print("🎓 Fetching YouTube Geopolitics + Macro Analysis...")
+        print("📺 9 Channels: Diesen, Mercouris, Gromen, Pal, Snider, Alden, Van Metre, Gammon, Taggart")
         print()
         
         results = {}
