@@ -8,6 +8,12 @@ from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes
 import yfinance as yf
 from datetime import datetime
+import sys
+import os
+
+# Add data_providers to path
+sys.path.append(os.path.join(os.path.dirname(__file__), 'data_providers'))
+from propaganda_filter import PropagandaFilter
 
 # Bot configuration
 BOT_TOKEN = "8305397344:AAER-Kpnczu6kPPC_5jfmHs7rKoZVAuAAHE"
@@ -22,6 +28,7 @@ class TradingBot:
             'cash': {'allocation': 0.74, 'leverage': 1, 'capital': 7400}
         }
         self.alerts = {}
+        self.propaganda_filter = PropagandaFilter()
         
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Welcome message"""
@@ -34,6 +41,7 @@ class TradingBot:
             "/bitcoin - Bitcoin Analyse\n"
             "/alert <asset> <price> - Preis-Alert\n"
             "/news - Geopolitische Lage\n"
+            "/facts - Verifizierte Fakten (Propaganda-frei)\n"
             "/portfolio - Detailliertes Portfolio\n"
             "/help - Hilfe\n\n"
             "💡 Tipp: Starte mit /status!",
@@ -229,6 +237,23 @@ class TradingBot:
         
         await update.message.reply_text(msg, parse_mode='Markdown')
     
+    async def facts(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Verified facts without propaganda"""
+        try:
+            # Get verified facts from propaganda filter
+            analysis = self.propaganda_filter.get_trading_relevant_facts()
+            
+            if analysis['status'] == 'success':
+                msg = self.propaganda_filter.format_for_telegram(analysis)
+                await update.message.reply_text(msg, parse_mode='Markdown')
+            else:
+                await update.message.reply_text(
+                    "❌ Fehler beim Laden der verifizierten Fakten.",
+                    parse_mode='Markdown'
+                )
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Help message"""
         msg = "🤖 *TRADING BOT HILFE*\n\n"
@@ -243,7 +268,8 @@ class TradingBot:
         msg += "/alert <asset> <price>\n"
         msg += "Beispiel: `/alert gold 4050`\n\n"
         msg += "📰 *NEWS:*\n"
-        msg += "/news - Geopolitische Lage\n\n"
+        msg += "/news - Geopolitische Lage\n"
+        msg += "/facts - Verifizierte Fakten (Propaganda-frei)\n\n"
         msg += "💡 *EMPFEHLUNGEN (31. Okt):*\n"
         msg += "• Gold: HOLD 18%\n"
         msg += "• Silver: NICHT KAUFEN (Topping!)\n"
@@ -263,6 +289,7 @@ class TradingBot:
         self.app.add_handler(CommandHandler("alert", self.set_alert))
         self.app.add_handler(CommandHandler("portfolio", self.portfolio))
         self.app.add_handler(CommandHandler("news", self.news))
+        self.app.add_handler(CommandHandler("facts", self.facts))
         self.app.add_handler(CommandHandler("help", self.help_command))
     
     def run(self):
