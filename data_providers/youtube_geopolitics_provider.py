@@ -19,11 +19,13 @@ class YouTubeGeopoliticsProvider:
         
         # Channel IDs (will be populated)
         self.channels = {
+            # GEOPOLITICS
             'glenn_diesen': {
                 'name': 'Glenn Diesen',
-                'channel_id': '@GlennDiesen',  # Will search for latest
+                'channel_id': '@GlennDiesen',
                 'focus': 'Strategy & Russia/NATO Analysis',
                 'frequency': 'Weekly',
+                'category': 'geopolitics',
                 'trading_value': 5
             },
             'alexander_mercouris': {
@@ -31,6 +33,7 @@ class YouTubeGeopoliticsProvider:
                 'channel_id': '@AlexanderMercouris',
                 'focus': 'Daily Geopolitical Updates',
                 'frequency': 'Daily',
+                'category': 'geopolitics',
                 'trading_value': 5
             },
             'luke_gromen': {
@@ -38,7 +41,58 @@ class YouTubeGeopoliticsProvider:
                 'channel_id': '@LukeGromen',
                 'focus': 'Gold & Geopolitical Trading',
                 'frequency': 'Weekly',
+                'category': 'trading',
                 'trading_value': 5
+            },
+            
+            # MACRO/FINANCE (NEW)
+            'raoul_pal': {
+                'name': 'Raoul Pal',
+                'channel_id': '@RaoulPal',
+                'focus': 'Macro Timing & Gold/Bitcoin',
+                'frequency': '2-3x per week',
+                'category': 'macro',
+                'trading_value': 5
+            },
+            'jeff_snider': {
+                'name': 'Jeff Snider',
+                'channel_id': '@EmilKalinowski',  # Eurodollar University
+                'focus': 'Dollar System & Liquidity',
+                'frequency': 'Weekly',
+                'category': 'macro',
+                'trading_value': 5
+            },
+            'lyn_alden': {
+                'name': 'Lyn Alden',
+                'channel_id': '@LynAlden',
+                'focus': 'Portfolio Strategy & Macro',
+                'frequency': 'Monthly',
+                'category': 'strategy',
+                'trading_value': 5
+            },
+            'steven_van_metre': {
+                'name': 'Steven Van Metre',
+                'channel_id': '@StevenVanMetre',
+                'focus': 'Deflation & Bonds',
+                'frequency': 'Daily',
+                'category': 'macro',
+                'trading_value': 4
+            },
+            'george_gammon': {
+                'name': 'George Gammon',
+                'channel_id': '@GeorgeGammon',
+                'focus': 'Macro Education',
+                'frequency': '2-3x per week',
+                'category': 'macro',
+                'trading_value': 4
+            },
+            'adam_taggart': {
+                'name': 'Adam Taggart',
+                'channel_id': '@thoughtfulmoney',
+                'focus': 'Expert Interviews',
+                'frequency': 'Daily',
+                'category': 'interviews',
+                'trading_value': 4
             }
         }
         
@@ -245,7 +299,9 @@ class YouTubeGeopoliticsProvider:
         results = {}
         
         # Analyze each channel
-        for channel_key in ['glenn_diesen', 'alexander_mercouris', 'luke_gromen']:
+        for channel_key in ['glenn_diesen', 'alexander_mercouris', 'luke_gromen', 
+                            'raoul_pal', 'jeff_snider', 'lyn_alden',
+                            'steven_van_metre', 'george_gammon', 'adam_taggart']:
             try:
                 analysis = self.analyze_channel(channel_key, max_age_days=7)
                 results[channel_key] = analysis
@@ -279,22 +335,39 @@ if __name__ == "__main__":
     # Test the provider
     provider = YouTubeGeopoliticsProvider()
     
-    print("Testing YouTube Geopolitics Provider...")
+    print("Testing YouTube Geopolitics + Finance Provider...")
     print("="*60)
     
     # Test with mock data (since we don't have real video IDs yet)
-    print("\n📺 CONFIGURED CHANNELS:")
+    print("\n📺 CONFIGURED CHANNELS (9 Total):")
+    
+    # Group by category
+    categories = {}
     for key, channel in provider.channels.items():
-        print(f"\n{channel['name']}:")
-        print(f"   Focus: {channel['focus']}")
-        print(f"   Frequency: {channel['frequency']}")
-        print(f"   Trading Value: {'⭐' * channel['trading_value']}")
+        cat = channel.get('category', 'other')
+        if cat not in categories:
+            categories[cat] = []
+        categories[cat].append(channel)
+    
+    for cat, channels in categories.items():
+        print(f"\n🎯 {cat.upper()}:")
+        for channel in channels:
+            print(f"   • {channel['name']}")
+            print(f"     Focus: {channel['focus']}")
+            print(f"     Frequency: {channel['frequency']}")
+            print(f"     Value: {'⭐' * channel['trading_value']}")
     
     print("\n" + "="*60)
-    print("✅ YouTube Geopolitics Provider Ready!")
+    print("✅ YouTube Provider Ready with 9 Channels!")
+    print("\n📊 COVERAGE:")
+    print("   • Geopolitics: 2 channels")
+    print("   • Macro/Finance: 4 channels")
+    print("   • Strategy: 1 channel")
+    print("   • Trading: 1 channel")
+    print("   • Interviews: 1 channel")
     print("\n💡 Next Steps:")
-    print("   1. Add real YouTube Data API key")
-    print("   2. Fetch latest videos from channels")
-    print("   3. Analyze transcripts for trading insights")
-    print("   4. Integrate into Telegram bot")
+    print("   1. Fetch latest videos from all channels")
+    print("   2. Analyze transcripts for trading insights")
+    print("   3. Aggregate sentiment across all experts")
+    print("   4. Generate trading recommendations")
 
