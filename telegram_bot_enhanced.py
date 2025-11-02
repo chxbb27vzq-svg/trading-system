@@ -76,43 +76,56 @@ class EnhancedTradingBot:
         await update.message.reply_text("💰 Analysiere Gold mit Alpha Vantage...")
         
         try:
-            # Get comprehensive analysis
+            # Get REAL gold price from yfinance (GC=F futures)
+            gold_ticker = yf.Ticker("GC=F")
+            gold_hist = gold_ticker.history(period="5d")
+            current_price = gold_hist['Close'].iloc[-1]
+            prev_price = gold_hist['Close'].iloc[-2]
+            change_pct = ((current_price - prev_price) / prev_price) * 100
+            
+            # Get technical indicators from Alpha Vantage (using GLD as proxy)
             analysis = self.alpha_vantage.get_comprehensive_analysis('GLD')
             
-            if not analysis:
-                await update.message.reply_text("❌ Analyse fehlgeschlagen. Verwende Fallback...")
-                gold = yf.Ticker("GC=F").history(period="1d")['Close'].iloc[-1]
-                msg = f"💰 *GOLD*\n\nPreis: ${gold:,.2f}\n✅ Empfehlung: HOLD 18%"
-                await update.message.reply_text(msg, parse_mode='Markdown')
-                return
-            
-            quote = analysis['quote']
-            rsi = analysis['rsi']
-            macd = analysis['macd']
-            ema_50 = analysis['ema_50']
-            
             msg = "💰 *GOLD ANALYSE (Enhanced)*\n\n"
-            msg += f"📈 Preis: ${quote['price']:.2f}\n"
-            msg += f"📊 24h: {quote['change_percent']}%\n\n"
+            msg += f"📈 Preis: ${current_price:,.2f}\n"
+            msg += f"📊 24h: {change_pct:+.2f}%\n\n"
             
-            if rsi:
+            if analysis and analysis['rsi']:
+                rsi = analysis['rsi']
+                macd = analysis['macd']
+                ema_50 = analysis['ema_50']
+                
                 msg += f"📊 *Technical Indicators:*\n"
                 msg += f"   • RSI(14): {rsi['value']:.1f} ({rsi['signal']})\n"
-            
-            if macd:
-                msg += f"   • MACD: {macd['trend']}\n"
-            
-            if ema_50:
-                msg += f"   • EMA(50): ${ema_50['value']:.2f}\n"
-            
-            msg += f"\n✅ *Empfehlung:* HOLD 18%\n"
-            msg += f"🎯 Target: $4,200\n"
-            msg += f"🛑 Stop: $3,850\n\n"
-            msg += f"💡 Overall: {analysis['overall_sentiment']}"
+                
+                if macd:
+                    msg += f"   • MACD: {macd['trend']}\n"
+                
+                if ema_50:
+                    # Scale EMA from GLD to Gold price (multiply by ~11)
+                    ema_scaled = ema_50['value'] * (current_price / 368)  # Approximate scaling
+                    msg += f"   • EMA(50): ${ema_scaled:,.0f}\n"
+                
+                msg += f"\n✅ *Empfehlung:* HOLD 18%\n"
+                msg += f"🎯 Target: $4,200\n"
+                msg += f"🛑 Stop: $3,850\n\n"
+                msg += f"💡 Overall: {analysis['overall_sentiment']}"
+            else:
+                # Fallback without indicators
+                msg += f"✅ *Empfehlung:* HOLD 18%\n"
+                msg += f"🎯 Target: $4,200\n"
+                msg += f"🛑 Stop: $3,850\n\n"
+                msg += f"💡 Technische Indikatoren vorübergehend nicht verfügbar"
             
             await update.message.reply_text(msg, parse_mode='Markdown')
         except Exception as e:
-            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+            await update.message.reply_text(f"❌ Fehler: {str(e)}\n\nVerwende Fallback...")
+            try:
+                gold = yf.Ticker("GC=F").history(period="1d")['Close'].iloc[-1]
+                msg = f"💰 *GOLD*\n\nPreis: ${gold:,.2f}\n✅ Empfehlung: HOLD 18%"
+                await update.message.reply_text(msg, parse_mode='Markdown')
+            except:
+                await update.message.reply_text("❌ Konnte Gold-Daten nicht abrufen")
     
     async def bitcoin_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Enhanced Bitcoin analysis"""

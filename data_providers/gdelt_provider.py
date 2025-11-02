@@ -37,7 +37,8 @@ class GDELTProvider:
             'mode': 'ArtList',
             'maxrecords': max_records,
             'timespan': timespan,
-            'format': 'json'
+            'format': 'json',
+            'sourcelang': 'eng'  # Only English articles
         }
         
         try:
@@ -100,15 +101,20 @@ class GDELTProvider:
         else:
             level = 'LOW'
         
-        # Get latest events
+        # Get latest events (filter for readable English titles)
         latest_events = []
-        for article in articles[:5]:
-            latest_events.append({
-                'title': article.get('title', 'No title'),
-                'url': article.get('url', ''),
-                'date': article.get('seendate', ''),
-                'source': article.get('domain', '')
-            })
+        for article in articles[:10]:  # Check more to get 5 good ones
+            title = article.get('title', '')
+            # Filter out non-Latin characters and very short titles
+            if title and len(title) > 20 and all(ord(c) < 128 or c.isspace() for c in title[:50]):
+                latest_events.append({
+                    'title': title,
+                    'url': article.get('url', ''),
+                    'date': article.get('seendate', ''),
+                    'source': article.get('domain', '')
+                })
+                if len(latest_events) >= 5:
+                    break
         
         return {
             'score': round(score, 1),
