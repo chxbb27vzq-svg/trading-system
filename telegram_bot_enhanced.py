@@ -19,6 +19,9 @@ from data_providers.oil_tactical_trader import OilTacticalTrader
 # Bot configuration
 BOT_TOKEN = "8305397344:AAER-Kpnczu6kPPC_5jfmHs7rKoZVAuAAHE"
 
+# Access Control - Only authorized users
+ALLOWED_USERS = [8387131635]  # Your Telegram User ID
+
 class EnhancedTradingBot:
     def __init__(self, token):
         self.token = token
@@ -33,8 +36,23 @@ class EnhancedTradingBot:
             'cash': {'allocation': 0.74, 'leverage': 1, 'capital': 7400}
         }
         
+    async def check_access(self, update: Update) -> bool:
+        """Check if user has access to the bot"""
+        user_id = update.effective_user.id
+        if user_id not in ALLOWED_USERS:
+            await update.message.reply_text(
+                "🔒 *Zugriff verweigert*\n\n"
+                "Dieser Bot ist privat und nur für autorisierte Benutzer zugänglich.\n\n"
+                f"Ihre User ID: `{user_id}`",
+                parse_mode='Markdown'
+            )
+            return False
+        return True
+    
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Welcome message"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text(
             "🤖 *Enhanced Trading Bot aktiviert!*\n\n"
             "✨ *NEU: Alpha Vantage + GDELT Integration!*\n\n"
@@ -54,6 +72,8 @@ class EnhancedTradingBot:
     
     async def status(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Quick portfolio status with geopolitical context"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text("📊 Lade Daten...")
         
         try:
@@ -80,6 +100,8 @@ class EnhancedTradingBot:
     
     async def gold_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Enhanced Gold analysis with Hybrid Provider"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text("💰 Analysiere Gold (TradingView + yfinance)...")
         
         try:
@@ -116,6 +138,8 @@ class EnhancedTradingBot:
     
     async def bitcoin_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Enhanced Bitcoin analysis with TradingView"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text("₿ Analysiere Bitcoin (TradingView)...")
         
         try:
@@ -153,6 +177,8 @@ class EnhancedTradingBot:
     
     async def silver_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Silver analysis with warning (Hybrid Provider)"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text("🥈 Analysiere Silver...")
         
         try:
@@ -184,6 +210,8 @@ class EnhancedTradingBot:
     
     async def geopolitical_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Professional geopolitical analysis (YouTube + News)"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text(
             "🌍 Starte professionelle Geopolitik-Analyse...\n\n"
             "🎓 YouTube: Diesen, Mercouris, Gromen\n"
@@ -210,6 +238,8 @@ class EnhancedTradingBot:
     
     async def oil_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Oil tactical trading analysis"""
+        if not await self.check_access(update):
+            return
         await update.message.reply_text("🛢️ Analysiere Öl-Märkte...")
         
         try:
@@ -230,6 +260,8 @@ class EnhancedTradingBot:
     
     async def news(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Manual geopolitical news (fallback)"""
+        if not await self.check_access(update):
+            return
         msg = "📰 *GEOPOLITISCHE LAGE*\n\n"
         msg += "⚠️ *NUKLEAR-SPANNUNGEN:* 9/10\n"
         msg += "   • Trump & Putin: Atomwaffentests\n"
@@ -249,6 +281,8 @@ class EnhancedTradingBot:
     
     async def portfolio(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Detailed portfolio"""
+        if not await self.check_access(update):
+            return
         try:
             gold = yf.Ticker("GC=F").history(period="1d")['Close'].iloc[-1]
             btc = yf.Ticker("BTC-USD").history(period="1d")['Close'].iloc[-1]
@@ -289,6 +323,8 @@ class EnhancedTradingBot:
     
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Help message"""
+        if not await self.check_access(update):
+            return
         msg = "🤖 *ENHANCED TRADING BOT*\n\n"
         msg += "✨ *NEU:*\n"
         msg += "• Alpha Vantage Integration\n"
