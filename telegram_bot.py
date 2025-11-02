@@ -14,6 +14,7 @@ import os
 # Add data_providers to path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'data_providers'))
 from propaganda_filter import PropagandaFilter
+from teacher_agent import TeacherAgent
 
 # Bot configuration
 BOT_TOKEN = "8305397344:AAER-Kpnczu6kPPC_5jfmHs7rKoZVAuAAHE"
@@ -29,6 +30,7 @@ class TradingBot:
         }
         self.alerts = {}
         self.propaganda_filter = PropagandaFilter()
+        self.teacher = TeacherAgent()
         
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Welcome message"""
@@ -43,6 +45,9 @@ class TradingBot:
             "/news - Geopolitische Lage\n"
             "/facts - Verifizierte Fakten (Propaganda-frei)\n"
             "/portfolio - Detailliertes Portfolio\n"
+            "/review - Wöchentliche Performance-Review\n"
+            "/lessons - Top Lessons Learned\n"
+            "/insights - Key Insights\n"
             "/help - Hilfe\n\n"
             "💡 Tipp: Starte mit /status!",
             parse_mode='Markdown'
@@ -254,6 +259,68 @@ class TradingBot:
         except Exception as e:
             await update.message.reply_text(f"❌ Fehler: {str(e)}")
     
+    async def review(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Weekly performance review"""
+        try:
+            # Get latest performance review from knowledge base
+            review = self.teacher.kb.get_latest_performance_review()
+            
+            if review:
+                # Parse JSON fields
+                import json
+                review['best_trade'] = json.loads(review['best_trade'])
+                review['worst_trade'] = json.loads(review['worst_trade'])
+                review['key_lessons'] = json.loads(review['key_lessons'])
+                review['recommendations'] = json.loads(review['recommendations'])
+                review['win_rate'] = (review['winning_trades'] / review['total_trades'] * 100) if review['total_trades'] > 0 else 0
+                
+                msg = self.teacher.format_review_for_telegram(review)
+                await update.message.reply_text(msg, parse_mode='Markdown')
+            else:
+                await update.message.reply_text(
+                    "📊 Noch keine Performance-Reviews verfügbar.\n\n"
+                    "Reviews werden automatisch nach Trades generiert.",
+                    parse_mode='Markdown'
+                )
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
+    async def lessons(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Top lessons learned"""
+        try:
+            # Get recent lessons
+            lessons = self.teacher.kb.get_recent_lessons(limit=5)
+            
+            if lessons:
+                msg = self.teacher.format_lessons_for_telegram(lessons)
+                await update.message.reply_text(msg, parse_mode='Markdown')
+            else:
+                await update.message.reply_text(
+                    "📚 Noch keine Lessons verfügbar.\n\n"
+                    "Lessons werden automatisch aus Trades extrahiert.",
+                    parse_mode='Markdown'
+                )
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
+    async def insights(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Key insights from knowledge base"""
+        try:
+            # Get recent insights
+            insights = self.teacher.kb.get_recent_insights(limit=5)
+            
+            if insights:
+                msg = self.teacher.format_insights_for_telegram(insights)
+                await update.message.reply_text(msg, parse_mode='Markdown')
+            else:
+                await update.message.reply_text(
+                    "💡 Noch keine Insights verfügbar.\n\n"
+                    "Insights werden automatisch aus Lessons generiert.",
+                    parse_mode='Markdown'
+                )
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Help message"""
         msg = "🤖 *TRADING BOT HILFE*\n\n"
@@ -270,6 +337,10 @@ class TradingBot:
         msg += "📰 *NEWS:*\n"
         msg += "/news - Geopolitische Lage\n"
         msg += "/facts - Verifizierte Fakten (Propaganda-frei)\n\n"
+        msg += "🎓 *LERNEN:*\n"
+        msg += "/review - Wöchentliche Performance-Review\n"
+        msg += "/lessons - Top Lessons Learned\n"
+        msg += "/insights - Key Insights\n\n"
         msg += "💡 *EMPFEHLUNGEN (31. Okt):*\n"
         msg += "• Gold: HOLD 18%\n"
         msg += "• Silver: NICHT KAUFEN (Topping!)\n"
@@ -290,6 +361,9 @@ class TradingBot:
         self.app.add_handler(CommandHandler("portfolio", self.portfolio))
         self.app.add_handler(CommandHandler("news", self.news))
         self.app.add_handler(CommandHandler("facts", self.facts))
+        self.app.add_handler(CommandHandler("review", self.review))
+        self.app.add_handler(CommandHandler("lessons", self.lessons))
+        self.app.add_handler(CommandHandler("insights", self.insights))
         self.app.add_handler(CommandHandler("help", self.help_command))
     
     def run(self):

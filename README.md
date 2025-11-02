@@ -13,14 +13,25 @@ Comprehensive AI-powered trading system for €10,000 portfolio targeting €1M 
 
 ### 2. Telegram Bot (24/7)
 Real-time portfolio monitoring and analysis via Telegram:
+
+**Portfolio & Analysis:**
 - `/status` - Quick portfolio status
 - `/portfolio` - Detailed portfolio breakdown
 - `/gold` - Gold market analysis
 - `/silver` - Silver market analysis
 - `/bitcoin` - Bitcoin market analysis
 - `/oil` - Oil tactical trading analysis
+
+**News & Intelligence:**
 - `/news` - Geopolitical situation summary
-- **`/facts`** - **Verified facts without propaganda (NEW!)** 🆕
+- **`/facts`** - **Verified facts without propaganda** 🆕
+
+**Learning & Performance:**
+- **`/review`** - **Weekly performance review** 🆕
+- **`/lessons`** - **Top lessons learned** 🆕
+- **`/insights`** - **Key insights from knowledge base** 🆕
+
+**Utilities:**
 - `/alert` - Set price alerts
 - `/help` - Command help
 
@@ -45,7 +56,31 @@ Integrates 9 YouTube expert channels + 10 news sources:
 - Trading: Luke Gromen
 - Interviews: Adam Taggart
 
-### 5. Real-Time Market Data
+### 5. Teacher Agent System (Self-Learning)
+Continuous learning and performance improvement system:
+
+**Features:**
+- **Knowledge Base**: SQLite database storing lessons, insights, strategies, and expert opinions
+- **Performance Analysis**: Automatic weekly reviews with win rate, returns, and recommendations
+- **Lesson Extraction**: Extracts patterns from successful and failed trades
+- **Insight Generation**: Identifies high-level patterns across multiple lessons
+- **Strategy Optimization**: Recommends adjustments based on performance data
+
+**Current Knowledge:**
+- 14 Lessons Learned
+- 7 Key Insights
+- 4 Active Trading Strategies
+- 6 Expert Opinions
+- 2 Performance Reviews
+
+**Evolution Path:**
+- Phase 1 (Current): Rule-based analysis, €0/month ✅
+- Phase 2 (Future): Enhanced automation, €0/month
+- Phase 3 (Optional): LLM-powered multi-agent, €20-50/month
+
+See `TEACHER_AGENT_GUIDE.md` for complete documentation.
+
+### 6. Real-Time Market Data
 - TradingView (primary)
 - yfinance (backup)
 - Alpha Vantage (technical indicators)
