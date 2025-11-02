@@ -14,6 +14,7 @@ sys.path.append('/home/ubuntu/trading_agents')
 from data_providers.alpha_vantage_provider import AlphaVantageProvider, get_symbol
 from data_providers.geopolitics_professional import ProfessionalGeopoliticsAnalyzer
 from data_providers.hybrid_provider import HybridMarketProvider
+from data_providers.oil_tactical_trader import OilTacticalTrader
 
 # Bot configuration
 BOT_TOKEN = "8305397344:AAER-Kpnczu6kPPC_5jfmHs7rKoZVAuAAHE"
@@ -25,6 +26,7 @@ class EnhancedTradingBot:
         self.alpha_vantage = AlphaVantageProvider()
         self.geopolitics = ProfessionalGeopoliticsAnalyzer()
         self.hybrid = HybridMarketProvider()  # NEW: Hybrid provider
+        self.oil_trader = OilTacticalTrader()  # NEW: Oil tactical trading
         self.portfolio = {
             'gold': {'allocation': 0.18, 'leverage': 4, 'capital': 1800},
             'bitcoin': {'allocation': 0.08, 'leverage': 3, 'capital': 800},
@@ -206,6 +208,26 @@ class EnhancedTradingBot:
             )
             await self.news(update, context)
     
+    async def oil_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Oil tactical trading analysis"""
+        await update.message.reply_text("🛢️ Analysiere Öl-Märkte...")
+        
+        try:
+            # Get oil analysis
+            analysis = self.oil_trader.get_comprehensive_analysis()
+            
+            if analysis['status'] != 'success':
+                await update.message.reply_text("❌ Öl-Daten nicht verfügbar")
+                return
+            
+            # Format for Telegram
+            msg = self.oil_trader.format_for_telegram(analysis)
+            
+            await update.message.reply_text(msg, parse_mode='Markdown')
+            
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
     async def news(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Manual geopolitical news (fallback)"""
         msg = "📰 *GEOPOLITISCHE LAGE*\n\n"
@@ -278,7 +300,8 @@ class EnhancedTradingBot:
         msg += "📈 *ANALYSE:*\n"
         msg += "/gold - Gold (mit Indicators)\n"
         msg += "/silver - Silver Warnung\n"
-        msg += "/bitcoin - Bitcoin Analyse\n\n"
+        msg += "/bitcoin - Bitcoin Analyse\n"
+        msg += "/oil - Öl Tactical Trading\n\n"
         msg += "🌍 *GEOPOLITIK:*\n"
         msg += "/geopolitik - GDELT Risk Assessment\n"
         msg += "/news - Manuelle Übersicht\n\n"
@@ -297,8 +320,9 @@ class EnhancedTradingBot:
         self.app.add_handler(CommandHandler("gold", self.gold_analysis))
         self.app.add_handler(CommandHandler("silver", self.silver_analysis))
         self.app.add_handler(CommandHandler("bitcoin", self.bitcoin_analysis))
-        self.app.add_handler(CommandHandler("geopolitik", self.geopolitical_analysis))
-        self.app.add_handler(CommandHandler("news", self.news))
+        self.app.add_handler(CommandHandler('geopolitik', self.geopolitical_analysis))
+        self.app.add_handler(CommandHandler('news', self.news))
+        self.app.add_handler(CommandHandler('oil', self.oil_analysis))
         self.app.add_handler(CommandHandler("portfolio", self.portfolio))
         self.app.add_handler(CommandHandler("help", self.help_command))
     
