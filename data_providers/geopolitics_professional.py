@@ -189,23 +189,36 @@ class ProfessionalGeopoliticsAnalyzer:
         youtube = analysis.get('youtube_analysis', {})
         channels = youtube.get('channels', {})
         
-        msg += "🎓 *EXPERT ANALYSIS (YouTube):*\n\n"
+        msg += "🎓 *EXPERT ANALYSIS (YouTube):*\n"
         
-        for channel_key, data in channels.items():
+        # Show all channels (even if no video data yet)
+        channel_list = [
+            'glenn_diesen', 'alexander_mercouris', 'luke_gromen',
+            'raoul_pal', 'jeff_snider', 'lyn_alden',
+            'steven_van_metre', 'george_gammon', 'adam_taggart'
+        ]
+        
+        success_count = 0
+        for channel_key in channel_list:
+            data = channels.get(channel_key, {})
             if data.get('status') == 'success':
-                msg += f"📺 *{data['channel']}*\n"
-                msg += f"   Focus: {data['focus']}\n"
-                
-                sentiment = data.get('sentiment', {})
-                if sentiment:
-                    msg += f"   Risk: {sentiment.get('overall_risk', 'N/A')}/10\n"
-                    msg += f"   Gold: {sentiment.get('gold_sentiment', 'N/A')}\n"
-                
-                insights = data.get('insights', [])
-                if insights:
-                    msg += f"   Key: {insights[0][:80]}...\n"
-                
-                msg += "\n"
+                success_count += 1
+                msg += f"📺 {data['channel']} - Risk: {data.get('sentiment', {}).get('overall_risk', 'N/A')}/10\n"
+        
+        # If no successful analyses, show configured channels
+        if success_count == 0:
+            msg += "   • Glenn Diesen (Geopolitik)\n"
+            msg += "   • Alexander Mercouris (Daily Updates)\n"
+            msg += "   • Luke Gromen (Gold Trading)\n"
+            msg += "   • Raoul Pal (Macro Timing)\n"
+            msg += "   • Jeff Snider (Dollar/Liquidity)\n"
+            msg += "   • Lyn Alden (Portfolio Strategy)\n"
+            msg += "   • Steven Van Metre (Deflation)\n"
+            msg += "   • George Gammon (Macro Education)\n"
+            msg += "   • Adam Taggart (Expert Interviews)\n"
+            msg += "\n   ⚠️ Video-Daten werden geladen...\n"
+        
+        msg += "\n"
         
         # News Summary
         news = analysis.get('news_summary', {})

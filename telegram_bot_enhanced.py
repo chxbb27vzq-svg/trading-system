@@ -214,7 +214,10 @@ class EnhancedTradingBot:
             return
         await update.message.reply_text(
             "🌍 Starte professionelle Geopolitik-Analyse...\n\n"
-            "🎓 YouTube: Diesen, Mercouris, Gromen\n"
+            "🎓 YouTube: 9 Experten\n"
+            "   • Geopolitik: Diesen, Mercouris\n"
+            "   • Macro: Pal, Snider, Van Metre, Gammon\n"
+            "   • Strategy: Alden, Gromen, Taggart\n"
             "📰 News: 10 internationale Quellen\n"
             "⏱️ Dauert ~45 Sekunden..."
         )
