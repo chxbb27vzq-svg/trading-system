@@ -20,6 +20,7 @@ Real-time portfolio monitoring and analysis via Telegram:
 - `/gold` - Gold market analysis
 - `/silver` - Silver market analysis
 - `/bitcoin` - Bitcoin market analysis
+- `/sp500` - S&P 500 market analysis
 - `/oil` - Oil tactical trading analysis
 
 **News & Intelligence:**
@@ -67,10 +68,10 @@ Continuous learning and performance improvement system:
 - **Strategy Optimization**: Recommends adjustments based on performance data
 
 **Current Knowledge:**
-- 14 Lessons Learned
-- 7 Key Insights
-- 4 Active Trading Strategies
-- 6 Expert Opinions
+- 20 Lessons Learned (Gold, Bitcoin, Oil, Silver, S&P 500)
+- 11 Key Insights (Geopolitics, Technical Analysis, Risk Management)
+- 5 Active Trading Strategies
+- 8 Expert Opinions
 - 2 Performance Reviews
 
 **Evolution Path:**
@@ -99,11 +100,11 @@ See `TEACHER_AGENT_GUIDE.md` for complete documentation.
 - Maximum drawdown: 20%
 
 ## Assets Tracked
-- Gold (GC=F)
-- Silver (SI=F)
-- Bitcoin (BTC-USD)
-- S&P 500 (^GSPC)
-- Brent Oil (BZ=F)
+- **Gold (GC=F)** - Safe haven, 18% allocation, 4x leverage
+- **Silver (SI=F)** - Industrial metal, currently avoided (topping pattern)
+- **Bitcoin (BTC-USD)** - Digital safe haven, 8% allocation, 3x leverage
+- **S&P 500 (^GSPC)** - Equities, 0-5% tactical allocation during high geopolitical risk
+- **Brent Oil (BZ=F)** - Energy, 4% tactical allocation, 12x leverage
 
 ## Technical Stack
 - **Language**: Python 3.11

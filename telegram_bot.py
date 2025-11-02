@@ -41,6 +41,8 @@ class TradingBot:
             "/gold - Gold Analyse\n"
             "/silver - Silver Analyse\n"
             "/bitcoin - Bitcoin Analyse\n"
+            "/sp500 - S&P 500 Analyse\n"
+            "/oil - Öl Analyse\n"
             "/alert <asset> <price> - Preis-Alert\n"
             "/news - Geopolitische Lage\n"
             "/facts - Verifizierte Fakten (Propaganda-frei)\n"
@@ -147,6 +149,63 @@ class TradingBot:
             msg += f"🛑 Stop-Loss: $103,000\n\n"
             msg += f"💡 Digital Gold Narrative intakt\n"
             msg += f"📊 EV: +0.50% (leicht positiv)"
+            
+            await update.message.reply_text(msg, parse_mode='Markdown')
+        except Exception as e:
+            await update.message.reply_text(f"❌ Fehler: {str(e)}")
+    
+    async def sp500_analysis(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """S&P 500 market analysis"""
+        try:
+            ticker = yf.Ticker("^GSPC")
+            hist = ticker.history(period="5d")
+            current = hist['Close'].iloc[-1]
+            prev = hist['Close'].iloc[-2]
+            change = ((current - prev) / prev) * 100
+            
+            week_high = hist['High'].max()
+            week_low = hist['Low'].min()
+            
+            # Calculate simple moving averages
+            hist_30d = ticker.history(period="30d")
+            sma_20 = hist_30d['Close'].tail(20).mean()
+            
+            # Determine trend
+            trend = "Bullish" if current > sma_20 else "Bearish"
+            trend_emoji = "🟢" if trend == "Bullish" else "🔴"
+            
+            # Risk assessment based on geopolitical situation
+            geopolitical_risk = "HIGH"  # Current nuclear tensions
+            
+            msg = "📈 *S&P 500 ANALYSE*\n\n"
+            msg += f"📈 Aktuell: {current:,.2f}\n"
+            msg += f"📊 24h: {change:+.2f}%\n"
+            msg += f"⬆️ Wochenhoch: {week_high:,.2f}\n"
+            msg += f"⬇️ Wochentief: {week_low:,.2f}\n"
+            msg += f"📊 SMA(20): {sma_20:,.2f}\n"
+            msg += f"{trend_emoji} Trend: {trend}\n\n"
+            
+            # Recommendation based on geopolitical risk
+            if geopolitical_risk == "HIGH":
+                msg += f"⚠️ *EMPFEHLUNG:* UNTERGEWICHTEN\n"
+                msg += f"📊 Allokation: 0-5% (Tactical)\n"
+                msg += f"🛑 Stop-Loss: -10%\n\n"
+                msg += f"💡 *BEGRÜNDUNG:*\n"
+                msg += f"   • Geopolitisches Risiko: {geopolitical_risk}\n"
+                msg += f"   • Nukleare Spannungen belasten Equities\n"
+                msg += f"   • Safe Havens (Gold/Bitcoin) bevorzugt\n"
+                msg += f"   • Bei Entspannung: Schnell re-entry möglich\n\n"
+                msg += f"🎯 *STRATEGIE:*\n"
+                msg += f"   • Cash-heavy bleiben (70%)\n"
+                msg += f"   • Nur tactical trades bei klaren Signalen\n"
+                msg += f"   • Inverse Correlation zu Gold nutzen\n"
+            else:
+                msg += f"✅ *Empfehlung:* HOLD 10-15%\n"
+                msg += f"🎯 Target: +10% from current\n"
+                msg += f"🛑 Stop-Loss: -7%\n\n"
+                msg += f"💡 Normale Marktbedingungen\n"
+            
+            msg += f"📊 EV: Negativ bei hohem Geo-Risiko"
             
             await update.message.reply_text(msg, parse_mode='Markdown')
         except Exception as e:
@@ -330,7 +389,9 @@ class TradingBot:
         msg += "📈 *ANALYSE:*\n"
         msg += "/gold - Gold Analyse\n"
         msg += "/silver - Silver Analyse\n"
-        msg += "/bitcoin - Bitcoin Analyse\n\n"
+        msg += "/bitcoin - Bitcoin Analyse\n"
+        msg += "/sp500 - S&P 500 Analyse\n"
+        msg += "/oil - Öl Analyse\n\n"
         msg += "🔔 *ALERTS:*\n"
         msg += "/alert <asset> <price>\n"
         msg += "Beispiel: `/alert gold 4050`\n\n"
@@ -357,6 +418,7 @@ class TradingBot:
         self.app.add_handler(CommandHandler("gold", self.gold_analysis))
         self.app.add_handler(CommandHandler("silver", self.silver_analysis))
         self.app.add_handler(CommandHandler("bitcoin", self.bitcoin_analysis))
+        self.app.add_handler(CommandHandler("sp500", self.sp500_analysis))
         self.app.add_handler(CommandHandler("alert", self.set_alert))
         self.app.add_handler(CommandHandler("portfolio", self.portfolio))
         self.app.add_handler(CommandHandler("news", self.news))
